@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>secure voting system</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/web3@1.10.4/dist/web3.min.js"></script>
+</head>
+<body>
+    <main>
+        <h1>secure voting system</h1>
+
+        <section>
+            <h2>wallet information</h2>
+            <button id="connectButton">connect metamask</button>
+            <p><strong>address:</strong> <span id="walletAddress">not connected</span></p>
+            <p><strong>network:</strong> <span id="networkName">-</span></p>
+            <p><strong>balance:</strong> <span id="walletBalance">-</span></p>
+            <p><strong>role:</strong> <span id="walletRole">-</span></p>
+            <p id="connectionMessage" class="message"></p>
+        </section>
+
+        <section>
+            <h2>current election</h2>
+            <p><strong>election id:</strong> <span id="electionIdDisplay">0</span></p>
+            <p><strong>topic:</strong> <span id="topicDisplay">no election prepared</span></p>
+            <p><strong>phase:</strong> <span id="phaseDisplay">-</span></p>
+            <p><strong>eligible:</strong> <span id="eligibleDisplay">-</span></p>
+            <p><strong>commitment submitted:</strong> <span id="committedDisplay">-</span></p>
+            <p><strong>vote revealed:</strong> <span id="revealedDisplay">-</span></p>
+            <div id="optionDisplay"></div>
+            <button id="refreshButton">refresh information</button>
+        </section>
+
+        <section>
+            <h2>admin election setup</h2>
+            <label for="topicInput">election topic</label>
+            <input id="topicInput" type="text" placeholder="enter the election topic">
+
+            <label for="optionInput">options</label>
+            <textarea id="optionInput" rows="4" placeholder="enter one option per line"></textarea>
+
+            <button id="prepareButton">prepare election</button>
+            <p id="prepareWarning" class="warning"></p>
+
+            <label for="voterAddressInput">voter address</label>
+            <input id="voterAddressInput" type="text" placeholder="0x...">
+
+            <button id="addVoterButton">add eligible voter</button>
+            <button id="removeVoterButton">remove eligible voter</button>
+            <button id="viewVotersButton">view eligible voters</button>
+            <p id="voterWarning" class="warning"></p>
+            <div id="eligibleVoterList" class="message"></div>
+
+            <button id="startButton">start voting</button>
+            <button id="endButton">end voting</button>
+            <button id="finaliseButton">finalise election</button>
+            <button id="resetButton">reset for next election</button>
+            <p id="phaseWarning" class="warning"></p>
+        </section>
+
+        <section>
+            <h2>voter commitment</h2>
+            <p>select an option and enter a private secret. keep the same option and secret for the reveal phase.</p>
+
+            <label for="commitOptionInput">option</label>
+            <select id="commitOptionInput">
+                <option value="">no options available</option>
+            </select>
+
+            <label for="secretInput">private secret</label>
+            <input id="secretInput" type="password" placeholder="enter a private secret">
+
+            <button id="calculateButton">calculate commitment</button>
+            <p><strong>commitment:</strong> <span id="commitmentDisplay">-</span></p>
+            <button id="commitButton">submit commitment</button>
+            <p id="commitWarning" class="warning"></p>
+        </section>
+
+        <section>
+            <h2>vote reveal</h2>
+            <p>use the same option and secret used to calculate your commitment.</p>
+
+            <label for="revealOptionInput">option</label>
+            <select id="revealOptionInput">
+                <option value="">no options available</option>
+            </select>
+
+            <label for="revealSecretInput">private secret</label>
+            <input id="revealSecretInput" type="password" placeholder="enter the same private secret">
+
+            <button id="revealButton">reveal vote</button>
+            <p id="revealWarning" class="warning"></p>
+        </section>
+
+        <section>
+            <h2>final result</h2>
+            <label for="resultElectionInput">election id</label>
+            <input id="resultElectionInput" type="number" min="1" placeholder="enter an election id">
+            <button id="resultButton">view result</button>
+            <p id="resultWarning" class="warning"></p>
+            <div id="resultDisplay"></div>
+        </section>
+
+        <section>
+            <h2>transaction feedback</h2>
+            <p id="transactionMessage" class="message">no transaction submitted</p>
+        </section>
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>
